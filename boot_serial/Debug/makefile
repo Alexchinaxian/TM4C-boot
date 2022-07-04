@@ -10,6 +10,8 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./Uart_Driver.obj" \
+"./main.obj" \
 "./boot_loader/bl_autobaud.obj" \
 "./boot_loader/bl_can.obj" \
 "./boot_loader/bl_check.obj" \
@@ -25,7 +27,42 @@ ORDERED_OBJS += \
 "./boot_loader/bl_uart.obj" \
 "./boot_loader/bl_usb.obj" \
 "./boot_loader/bl_usbfuncs.obj" \
+"./driverlib/adc.obj" \
+"./driverlib/aes.obj" \
+"./driverlib/can.obj" \
+"./driverlib/comp.obj" \
+"./driverlib/cpu.obj" \
+"./driverlib/crc.obj" \
+"./driverlib/des.obj" \
+"./driverlib/eeprom.obj" \
+"./driverlib/emac.obj" \
+"./driverlib/epi.obj" \
+"./driverlib/epi_workaround_ccs.obj" \
+"./driverlib/flash.obj" \
+"./driverlib/fpu.obj" \
+"./driverlib/gpio.obj" \
+"./driverlib/hibernate.obj" \
+"./driverlib/i2c.obj" \
+"./driverlib/interrupt.obj" \
+"./driverlib/lcd.obj" \
+"./driverlib/mpu.obj" \
+"./driverlib/onewire.obj" \
+"./driverlib/pwm.obj" \
+"./driverlib/qei.obj" \
+"./driverlib/shamd5.obj" \
+"./driverlib/ssi.obj" \
+"./driverlib/sw_crc.obj" \
+"./driverlib/sysctl.obj" \
+"./driverlib/sysexc.obj" \
+"./driverlib/systick.obj" \
+"./driverlib/timer.obj" \
+"./driverlib/uart.obj" \
+"./driverlib/udma.obj" \
+"./driverlib/usb.obj" \
+"./driverlib/watchdog.obj" \
 "C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_link_ccs.cmd" \
+"../driverlib/ccs/Debug/driverlib.lib" \
+"../driverlib/rvmdk/driverlib.lib" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
 
@@ -36,8 +73,20 @@ RMDIR := RMDIR /S/Q
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include subdir_vars.mk
 -include boot_loader/subdir_vars.mk
+-include driverlib/subdir_vars.mk
+-include driverlib/ccs/Debug/subdir_vars.mk
+-include driverlib/ewarm/Exe/subdir_vars.mk
+-include driverlib/gcc/subdir_vars.mk
+-include driverlib/rvmdk/subdir_vars.mk
+-include subdir_rules.mk
 -include boot_loader/subdir_rules.mk
+-include driverlib/subdir_rules.mk
+-include driverlib/ccs/Debug/subdir_rules.mk
+-include driverlib/ewarm/Exe/subdir_rules.mk
+-include driverlib/gcc/subdir_rules.mk
+-include driverlib/rvmdk/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -147,14 +196,14 @@ BIN_OUTPUTS__QUOTED += \
 
 
 # All Target
-all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+all: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(A_SRCS) $(GEN_CMDS)
 	@$(MAKE) --no-print-directory -Onone "boot_serial.out"
 
 # Tool invocations
-boot_serial.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+boot_serial.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(A_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --define=ccs="ccs" --define=TARGET_IS_TM4C129_RA2 --define=PART_TM4C1290NCZAD -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual -z -m"boot_serial_ccs.map" --heap_size=0 --stack_size=192 -i"C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/lib" -i"C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="boot_serial_linkInfo.xml" --ram_model -o "boot_serial.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me -O2 --define=ccs="ccs" --define=TARGET_IS_TM4C129_RA2 --define=PART_TM4C1290NCZAD -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --gen_func_subsections=on --abi=eabi --ual -z -m"boot_serial_ccs.map" --heap_size=0 --stack_size=192 -i"C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/lib" -i"C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="boot_serial_linkInfo.xml" --ram_model -o "boot_serial.out" $(ORDERED_OBJS) $(A_SRCS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 	@$(MAKE) --no-print-directory post-build
@@ -170,9 +219,10 @@ boot_serial.bin: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "boot_loader\bl_autobaud.obj" "boot_loader\bl_can.obj" "boot_loader\bl_check.obj" "boot_loader\bl_crc32.obj" "boot_loader\bl_decrypt.obj" "boot_loader\bl_emac.obj" "boot_loader\bl_flash.obj" "boot_loader\bl_i2c.obj" "boot_loader\bl_main.obj" "boot_loader\bl_packet.obj" "boot_loader\bl_ssi.obj" "boot_loader\bl_startup_ccs.obj" "boot_loader\bl_uart.obj" "boot_loader\bl_usb.obj" "boot_loader\bl_usbfuncs.obj" 
-	-$(RM) "boot_loader\bl_autobaud.d" "boot_loader\bl_can.d" "boot_loader\bl_check.d" "boot_loader\bl_crc32.d" "boot_loader\bl_decrypt.d" "boot_loader\bl_emac.d" "boot_loader\bl_flash.d" "boot_loader\bl_i2c.d" "boot_loader\bl_main.d" "boot_loader\bl_packet.d" "boot_loader\bl_ssi.d" "boot_loader\bl_uart.d" "boot_loader\bl_usb.d" "boot_loader\bl_usbfuncs.d" 
-	-$(RM) "boot_loader\bl_startup_ccs.d" 
+	-$(RM) "Uart_Driver.obj" "main.obj" "boot_loader\bl_autobaud.obj" "boot_loader\bl_can.obj" "boot_loader\bl_check.obj" "boot_loader\bl_crc32.obj" "boot_loader\bl_decrypt.obj" "boot_loader\bl_emac.obj" "boot_loader\bl_flash.obj" "boot_loader\bl_i2c.obj" "boot_loader\bl_main.obj" "boot_loader\bl_packet.obj" "boot_loader\bl_ssi.obj" "boot_loader\bl_startup_ccs.obj" "boot_loader\bl_uart.obj" "boot_loader\bl_usb.obj" "boot_loader\bl_usbfuncs.obj" "driverlib\adc.obj" "driverlib\aes.obj" "driverlib\can.obj" "driverlib\comp.obj" "driverlib\cpu.obj" "driverlib\crc.obj" "driverlib\des.obj" "driverlib\eeprom.obj" "driverlib\emac.obj" "driverlib\epi.obj" "driverlib\epi_workaround_ccs.obj" "driverlib\flash.obj" "driverlib\fpu.obj" "driverlib\gpio.obj" "driverlib\hibernate.obj" "driverlib\i2c.obj" "driverlib\interrupt.obj" "driverlib\lcd.obj" "driverlib\mpu.obj" "driverlib\onewire.obj" "driverlib\pwm.obj" "driverlib\qei.obj" "driverlib\shamd5.obj" "driverlib\ssi.obj" "driverlib\sw_crc.obj" "driverlib\sysctl.obj" 
+	-$(RM) "driverlib\sysexc.obj" "driverlib\systick.obj" "driverlib\timer.obj" "driverlib\uart.obj" "driverlib\udma.obj" "driverlib\usb.obj" "driverlib\watchdog.obj" 
+	-$(RM) "Uart_Driver.d" "main.d" "boot_loader\bl_autobaud.d" "boot_loader\bl_can.d" "boot_loader\bl_check.d" "boot_loader\bl_crc32.d" "boot_loader\bl_decrypt.d" "boot_loader\bl_emac.d" "boot_loader\bl_flash.d" "boot_loader\bl_i2c.d" "boot_loader\bl_main.d" "boot_loader\bl_packet.d" "boot_loader\bl_ssi.d" "boot_loader\bl_uart.d" "boot_loader\bl_usb.d" "boot_loader\bl_usbfuncs.d" "driverlib\adc.d" "driverlib\aes.d" "driverlib\can.d" "driverlib\comp.d" "driverlib\cpu.d" "driverlib\crc.d" "driverlib\des.d" "driverlib\eeprom.d" "driverlib\emac.d" "driverlib\epi.d" "driverlib\flash.d" "driverlib\fpu.d" "driverlib\gpio.d" "driverlib\hibernate.d" "driverlib\i2c.d" "driverlib\interrupt.d" "driverlib\lcd.d" "driverlib\mpu.d" "driverlib\onewire.d" "driverlib\pwm.d" "driverlib\qei.d" "driverlib\shamd5.d" "driverlib\ssi.d" "driverlib\sw_crc.d" "driverlib\sysctl.d" "driverlib\sysexc.d" "driverlib\systick.d" "driverlib\timer.d" "driverlib\uart.d" "driverlib\udma.d" "driverlib\usb.d" "driverlib\watchdog.d" 
+	-$(RM) "boot_loader\bl_startup_ccs.d" "driverlib\epi_workaround_ccs.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

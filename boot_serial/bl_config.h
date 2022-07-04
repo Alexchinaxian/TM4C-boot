@@ -24,7 +24,8 @@
 
 #ifndef __BL_CONFIG_H__
 #define __BL_CONFIG_H__
-
+void ConfigureDevice(void);
+void boot_updater(void);
 //*****************************************************************************
 //
 // The following defines are used to configure the operation of the boot

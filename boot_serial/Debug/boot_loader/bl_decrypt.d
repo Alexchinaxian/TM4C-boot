@@ -11,7 +11,7 @@ boot_loader/bl_decrypt.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.L
 boot_loader/bl_decrypt.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/machine/_types.h
 boot_loader/bl_decrypt.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/machine/_stdint.h
 boot_loader/bl_decrypt.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/sys/_stdint.h
-boot_loader/bl_decrypt.obj: C:/Users/alex/Desktop/boot/boot_serial/bl_config.h
+boot_loader/bl_decrypt.obj: C:/Github/TM4C-boot/boot_serial/bl_config.h
 boot_loader/bl_decrypt.obj: C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_decrypt.h
 
 C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_decrypt.c:
@@ -36,7 +36,7 @@ C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/machine/_stdint.h
 
 C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/sys/_stdint.h:
 
-C:/Users/alex/Desktop/boot/boot_serial/bl_config.h:
+C:/Github/TM4C-boot/boot_serial/bl_config.h:
 
 C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_decrypt.h:
 

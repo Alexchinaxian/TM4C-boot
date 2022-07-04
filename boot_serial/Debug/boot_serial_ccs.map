@@ -1,31 +1,31 @@
 ******************************************************************************
                   TI ARM Linker PC v20.2.5                     
 ******************************************************************************
->> Linked Mon Jul  4 19:53:02 2022
+>> Linked Mon Jul  4 22:35:41 2022
 
 OUTPUT FILE NAME:   <boot_serial.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 2000039f
+ENTRY POINT SYMBOL: "_c_int00"  address: 200005b7
 
 
 MEMORY CONFIGURATION
 
          name            origin    length      used     unused   attr    fill
 ----------------------  --------  ---------  --------  --------  ----  --------
-  FLASH                 00000000   00010000  00000544  0000fabc  R  X
-  SRAM                  20000000   00010000  00000664  0000f99c  RW X
+  FLASH                 00000000   00010000  00000bc8  0000f438  R  X
+  SRAM                  20000000   00010000  00000cf8  0000f308  RW X
 
 
 SEGMENT ALLOCATION MAP
 
 run origin  load origin   length   init length attrs members
 ----------  ----------- ---------- ----------- ----- -------
-20000000    00000000    00000544   00000544    r-x
+20000000    00000000    00000bc8   00000bc8    r-x
   20000000    00000000    00000044   00000044    r-- .intvecs
-  20000044    00000044    000004fc   000004fc    r-x .text
-  20000540    00000540    00000004   00000004    r-- .const
-20000548    20000548    00000120   00000000    rw-
-  20000548    20000548    0000005d   00000000    rw- .bss
-  200005a8    200005a8    000000c0   00000000    rw- .stack
+  20000044    00000044    0000088a   0000088a    r-x .text
+  200008d0    000008d0    000002f8   000002f8    r-- .const
+20000bc8    20000bc8    00000130   00000000    rw-
+  20000bc8    20000bc8    00000070   00000000    rw- .bss
+  20000c38    20000c38    000000c0   00000000    rw- .stack
 
 
 SECTION ALLOCATION MAP
@@ -36,147 +36,180 @@ section   page    origin      length       input sections
 .intvecs   0    00000000    00000044     RUN ADDR = 20000000
                   00000000    00000044     bl_startup_ccs.obj (.intvecs)
 
-.text      0    00000044    000004fc     RUN ADDR = 20000044
-                  00000044    00000204     bl_main.obj (.text:Updater)
-                  00000248    000000c0     bl_main.obj (.text:ConfigureDevice)
-                  00000308    00000098     bl_startup_ccs.obj (.text)
-                  000003a0    0000006a     bl_packet.obj (.text:ReceivePacket)
-                  0000040a    0000004a     bl_packet.obj (.text:SendPacket)
-                  00000454    0000002e     bl_check.obj (.text:CheckForceUpdate)
-                  00000482    00000002     --HOLE-- [fill = 0]
-                  00000484    0000002c     bl_flash.obj (.text:BLInternalFlashStartAddrCheck)
-                  000004b0    00000024     bl_uart.obj (.text:UARTSend)
-                  000004d4    00000020     bl_uart.obj (.text:UARTReceive)
-                  000004f4    00000018     bl_packet.obj (.text:CheckSum)
-                  0000050c    00000014     bl_uart.obj (.text:UARTFlush)
-                  00000520    0000000c     bl_packet.obj (.text:AckPacket)
-                  0000052c    0000000c     bl_packet.obj (.text:NakPacket)
-                  00000538    00000008     bl_main.obj (.text:SwapWord)
+.text      0    00000044    0000088a     RUN ADDR = 20000044
+                  00000044    00000200     sysctl.obj (.text:SysCtlClockFreqSet)
+                  00000244    00000132     gpio.obj (.text:GPIOPadConfigSet)
+                  00000376    00000002     --HOLE-- [fill = 0]
+                  00000378    000000e8     Uart_Driver.obj (.text:BMS_ReceivePacket)
+                  00000460    000000c0     bl_main.obj (.text:ConfigureDevice)
+                  00000520    00000098     bl_startup_ccs.obj (.text)
+                  000005b8    0000007c     Uart_Driver.obj (.text:UART_Config)
+                  00000634    00000068     interrupt.obj (.text:IntEnable)
+                  0000069c    0000004c     gpio.obj (.text:GPIOPinConfigure)
+                  000006e8    00000048     sysctl.obj (.text:_SysCtlFrequencyGet)
+                  00000730    00000046     uart.obj (.text:UARTConfigSetExpClk)
+                  00000776    00000002     --HOLE-- [fill = 0]
+                  00000778    00000034     sysctl.obj (.text:SysCtlPeripheralEnable)
+                  000007ac    0000002e     bl_check.obj (.text:CheckForceUpdate)
+                  000007da    0000002c     gpio.obj (.text:GPIODirModeSet)
+                  00000806    00000002     --HOLE-- [fill = 0]
+                  00000808    00000020     uart.obj (.text:UARTDisable)
+                  00000828    00000020     sysctl.obj (.text:_SysCtlMemTimingGet)
+                  00000848    00000018     gpio.obj (.text:GPIOPinTypeGPIOOutput)
+                  00000860    00000016     gpio.obj (.text:GPIOPinTypeUART)
+                  00000876    00000014     uart.obj (.text:UARTEnable)
+                  0000088a    00000014     main.obj (.text:main)
+                  0000089e    00000002     --HOLE-- [fill = 0]
+                  000008a0    00000010     bl_main.obj (.text:boot_updater)
+                  000008b0    0000000c     main.obj (.text:HandleUpdate)
+                  000008bc    0000000a     uart.obj (.text:UARTCharGet)
+                  000008c6    00000008     uart.obj (.text:UARTIntEnable)
 
-.const     0    00000540    00000004     RUN ADDR = 20000540
-                  00000540    00000002     bl_packet.obj (.const:.string:g_pui8ACK)
-                  00000542    00000002     bl_packet.obj (.const:.string:g_pui8NAK)
+.const     0    000008d0    000002f8     RUN ADDR = 200008d0
+                  000008d0    000001b0     sysctl.obj (.const:g_pppui32XTALtoVCO)
+                  00000a80    00000090     gpio.obj (.const:g_pui32GPIOBaseAddrs)
+                  00000b10    0000006c     sysctl.obj (.const:g_pui32Xtals)
+                  00000b7c    00000030     sysctl.obj (.const:g_sXTALtoMEMTIM)
+                  00000bac    00000014     interrupt.obj (.const:g_pui32EnRegs)
+                  00000bc0    00000008     sysctl.obj (.const:g_pui32VCOFrequencies)
 
-.data      0    00000544    00000000     UNINITIALIZEDRUN ADDR = 20000544
+.data      0    00000bc8    00000000     UNINITIALIZEDRUN ADDR = 20000bc8
 
-.bss       0    20000548    0000005d     UNINITIALIZED
-                  20000548    00000050     (.common:g_pui32DataBuffer)
-                  20000598    00000004     (.common:g_pui8DataBuffer)
-                  2000059c    00000004     (.common:g_ui32TransferAddress)
-                  200005a0    00000004     (.common:g_ui32TransferSize)
-                  200005a4    00000001     (.common:g_ui8Status)
+.bss       0    20000bc8    00000070     UNINITIALIZED
+                  20000bc8    0000006a     (.common:rxBuffer)
+                  20000c32    00000002     --HOLE--
+                  20000c34    00000004     (.common:g_ui32SysClock)
 
-.stack     0    200005a8    000000c0     UNINITIALIZED
-                  200005a8    000000c0     bl_startup_ccs.obj (.stack)
+.stack     0    20000c38    000000c0     UNINITIALIZED
+                  20000c38    000000c0     bl_startup_ccs.obj (.stack)
 
 MODULE SUMMARY
 
        Module               code   ro data   rw data
        ------               ----   -------   -------
-    .\boot_loader\
-       bl_main.obj          1432   0         93     
-       bl_packet.obj        456    8         0      
-       bl_startup_ccs.obj   304    136       0      
-       bl_uart.obj          176    0         0      
-       bl_check.obj         92     0         0      
-       bl_flash.obj         88     0         0      
+    .\
+       Uart_Driver.obj      712    0         4      
+       main.obj             64     0         0      
     +--+--------------------+------+---------+---------+
-       Total:               2548   144       93     
+       Total:               776    0         4      
+                                                    
+    .\boot_loader\
+       bl_main.obj          416    0         106    
+       bl_startup_ccs.obj   304    136       0      
+       bl_check.obj         92     0         0      
+    +--+--------------------+------+---------+---------+
+       Total:               812    136       106    
+                                                    
+    .\driverlib\
+       sysctl.obj           1336   1192      0      
+       gpio.obj             944    288       0      
+       uart.obj             280    0         0      
+       interrupt.obj        208    40        0      
+    +--+--------------------+------+---------+---------+
+       Total:               2768   1520      0      
                                                     
        Stack:               0      0         192    
     +--+--------------------+------+---------+---------+
-       Grand Total:         2548   144       285    
+       Grand Total:         4356   1656      302    
 
 
 GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name 
 
-address   name                         
--------   ----                         
-20000521  AckPacket                    
-20000485  BLInternalFlashStartAddrCheck
-20000455  CheckForceUpdate             
-200004f5  CheckSum                     
-20000249  ConfigureDevice              
-20000399  Delay                        
-2000052d  NakPacket                    
-200003a1  ReceivePacket                
-2000034d  ResetISR                     
-2000040b  SendPacket                   
-2000036f  StartApplication             
-20000539  SwapWord                     
-2000050d  UARTFlush                    
-200004d5  UARTReceive                  
-200004b1  UARTSend                     
-20000045  Updater                      
-20000000  Vectors                      
-20000668  __STACK_END                  
-000000c0  __STACK_SIZE                 
-20000668  __STACK_TOP                  
-ffffffff  __TI_pprof_out_hndl          
-ffffffff  __TI_prof_data_size          
-ffffffff  __TI_prof_data_start         
-20000000  __TI_static_base__           
-ffffffff  __binit__                    
-ffffffff  __c_args__                   
-200005a8  __stack                      
-2000039f  _c_int00                     
-ffffffff  binit                        
-20000668  bss_end                      
-20000548  bss_run                      
-00000120  bss_size                     
-20000548  g_pui32DataBuffer            
-20000598  g_pui8DataBuffer             
-2000059c  g_ui32TransferAddress        
-200005a0  g_ui32TransferSize           
-200005a4  g_ui8Status                  
-00000000  init_load                    
-20000000  init_run                     
-00000544  init_size                    
+address   name                  
+-------   ----                  
+20000379  BMS_ReceivePacket     
+200007ad  CheckForceUpdate      
+20000461  ConfigureDevice       
+200005b1  Delay                 
+200007db  GPIODirModeSet        
+20000245  GPIOPadConfigSet      
+2000069d  GPIOPinConfigure      
+20000849  GPIOPinTypeGPIOOutput 
+20000861  GPIOPinTypeUART       
+200008b1  HandleUpdate          
+20000635  IntEnable             
+20000565  ResetISR              
+20000587  StartApplication      
+20000045  SysCtlClockFreqSet    
+20000779  SysCtlPeripheralEnable
+200008bd  UARTCharGet           
+20000731  UARTConfigSetExpClk   
+20000809  UARTDisable           
+20000877  UARTEnable            
+200008c7  UARTIntEnable         
+200005b9  UART_Config           
+20000000  Vectors               
+20000cf8  __STACK_END           
+000000c0  __STACK_SIZE          
+20000cf8  __STACK_TOP           
+ffffffff  __TI_pprof_out_hndl   
+ffffffff  __TI_prof_data_size   
+ffffffff  __TI_prof_data_start  
+20000000  __TI_static_base__    
+ffffffff  __binit__             
+ffffffff  __c_args__            
+20000c38  __stack               
+200005b7  _c_int00              
+ffffffff  binit                 
+200008a1  boot_updater          
+20000cf8  bss_end               
+20000bc8  bss_run               
+00000130  bss_size              
+20000c34  g_ui32SysClock        
+00000000  init_load             
+20000000  init_run              
+00000bc8  init_size             
+2000088b  main                  
+20000bc8  rxBuffer              
 
 
 GLOBAL SYMBOLS: SORTED BY Symbol Address 
 
-address   name                         
--------   ----                         
-00000000  init_load                    
-000000c0  __STACK_SIZE                 
-00000120  bss_size                     
-00000544  init_size                    
-20000000  Vectors                      
-20000000  __TI_static_base__           
-20000000  init_run                     
-20000045  Updater                      
-20000249  ConfigureDevice              
-2000034d  ResetISR                     
-2000036f  StartApplication             
-20000399  Delay                        
-2000039f  _c_int00                     
-200003a1  ReceivePacket                
-2000040b  SendPacket                   
-20000455  CheckForceUpdate             
-20000485  BLInternalFlashStartAddrCheck
-200004b1  UARTSend                     
-200004d5  UARTReceive                  
-200004f5  CheckSum                     
-2000050d  UARTFlush                    
-20000521  AckPacket                    
-2000052d  NakPacket                    
-20000539  SwapWord                     
-20000548  bss_run                      
-20000548  g_pui32DataBuffer            
-20000598  g_pui8DataBuffer             
-2000059c  g_ui32TransferAddress        
-200005a0  g_ui32TransferSize           
-200005a4  g_ui8Status                  
-200005a8  __stack                      
-20000668  __STACK_END                  
-20000668  __STACK_TOP                  
-20000668  bss_end                      
-ffffffff  __TI_pprof_out_hndl          
-ffffffff  __TI_prof_data_size          
-ffffffff  __TI_prof_data_start         
-ffffffff  __binit__                    
-ffffffff  __c_args__                   
-ffffffff  binit                        
+address   name                  
+-------   ----                  
+00000000  init_load             
+000000c0  __STACK_SIZE          
+00000130  bss_size              
+00000bc8  init_size             
+20000000  Vectors               
+20000000  __TI_static_base__    
+20000000  init_run              
+20000045  SysCtlClockFreqSet    
+20000245  GPIOPadConfigSet      
+20000379  BMS_ReceivePacket     
+20000461  ConfigureDevice       
+20000565  ResetISR              
+20000587  StartApplication      
+200005b1  Delay                 
+200005b7  _c_int00              
+200005b9  UART_Config           
+20000635  IntEnable             
+2000069d  GPIOPinConfigure      
+20000731  UARTConfigSetExpClk   
+20000779  SysCtlPeripheralEnable
+200007ad  CheckForceUpdate      
+200007db  GPIODirModeSet        
+20000809  UARTDisable           
+20000849  GPIOPinTypeGPIOOutput 
+20000861  GPIOPinTypeUART       
+20000877  UARTEnable            
+2000088b  main                  
+200008a1  boot_updater          
+200008b1  HandleUpdate          
+200008bd  UARTCharGet           
+200008c7  UARTIntEnable         
+20000bc8  bss_run               
+20000bc8  rxBuffer              
+20000c34  g_ui32SysClock        
+20000c38  __stack               
+20000cf8  __STACK_END           
+20000cf8  __STACK_TOP           
+20000cf8  bss_end               
+ffffffff  __TI_pprof_out_hndl   
+ffffffff  __TI_prof_data_size   
+ffffffff  __TI_prof_data_start  
+ffffffff  __binit__             
+ffffffff  __c_args__            
+ffffffff  binit                 
 
-[40 symbols]
+[44 symbols]

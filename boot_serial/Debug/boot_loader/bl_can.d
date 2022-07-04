@@ -11,21 +11,21 @@ boot_loader/bl_can.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/i
 boot_loader/bl_can.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/machine/_types.h
 boot_loader/bl_can.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/machine/_stdint.h
 boot_loader/bl_can.obj: C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/sys/_stdint.h
-boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_can.h
-boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_gpio.h
-boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_memmap.h
-boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_nvic.h
-boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_flash.h
-boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_sysctl.h
-boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_types.h
-boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_uart.h
-boot_loader/bl_can.obj: C:/Users/alex/Desktop/boot/boot_serial/bl_config.h
+boot_loader/bl_can.obj: C:/Github/TM4C-boot/boot_serial/inc/hw_can.h
+boot_loader/bl_can.obj: C:/Github/TM4C-boot/boot_serial/inc/hw_gpio.h
+boot_loader/bl_can.obj: C:/Github/TM4C-boot/boot_serial/inc/hw_memmap.h
+boot_loader/bl_can.obj: C:/Github/TM4C-boot/boot_serial/inc/hw_nvic.h
+boot_loader/bl_can.obj: C:/Github/TM4C-boot/boot_serial/inc/hw_flash.h
+boot_loader/bl_can.obj: C:/Github/TM4C-boot/boot_serial/inc/hw_sysctl.h
+boot_loader/bl_can.obj: C:/Github/TM4C-boot/boot_serial/inc/hw_types.h
+boot_loader/bl_can.obj: C:/Github/TM4C-boot/boot_serial/inc/hw_uart.h
+boot_loader/bl_can.obj: C:/Github/TM4C-boot/boot_serial/bl_config.h
 boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_can.h
 boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_can_timing.h
 boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_check.h
 boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_crystal.h
 boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_flash.h
-boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/driverlib/rom.h
+boot_loader/bl_can.obj: C:/Github/TM4C-boot/boot_serial/driverlib/rom.h
 boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_hooks.h
 boot_loader/bl_can.obj: C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_uart.h
 
@@ -51,23 +51,23 @@ C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/machine/_stdint.h
 
 C:/ti/ccs1120/ccs/tools/compiler/ti-cgt-arm_20.2.5.LTS/include/sys/_stdint.h:
 
-C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_can.h:
+C:/Github/TM4C-boot/boot_serial/inc/hw_can.h:
 
-C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_gpio.h:
+C:/Github/TM4C-boot/boot_serial/inc/hw_gpio.h:
 
-C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_memmap.h:
+C:/Github/TM4C-boot/boot_serial/inc/hw_memmap.h:
 
-C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_nvic.h:
+C:/Github/TM4C-boot/boot_serial/inc/hw_nvic.h:
 
-C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_flash.h:
+C:/Github/TM4C-boot/boot_serial/inc/hw_flash.h:
 
-C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_sysctl.h:
+C:/Github/TM4C-boot/boot_serial/inc/hw_sysctl.h:
 
-C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_types.h:
+C:/Github/TM4C-boot/boot_serial/inc/hw_types.h:
 
-C:/ti/TivaWare_C_Series-2.2.0.295/inc/hw_uart.h:
+C:/Github/TM4C-boot/boot_serial/inc/hw_uart.h:
 
-C:/Users/alex/Desktop/boot/boot_serial/bl_config.h:
+C:/Github/TM4C-boot/boot_serial/bl_config.h:
 
 C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_can.h:
 
@@ -79,7 +79,7 @@ C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_crystal.h:
 
 C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_flash.h:
 
-C:/ti/TivaWare_C_Series-2.2.0.295/driverlib/rom.h:
+C:/Github/TM4C-boot/boot_serial/driverlib/rom.h:
 
 C:/ti/TivaWare_C_Series-2.2.0.295/boot_loader/bl_hooks.h:
 
