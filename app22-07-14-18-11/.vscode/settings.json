@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "main.h": "c",
+        "sysctl.h": "c",
+        "pin_map.h": "c",
+        "uart_driver.h": "c",
+        "hw_memmap.h": "c",
+        "spi_driver.h": "c",
+        "ssi.h": "c"
+    }
+}
